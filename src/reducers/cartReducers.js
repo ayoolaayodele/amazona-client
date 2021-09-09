@@ -1,4 +1,4 @@
-import { CART_ADD_ITEM } from "../constants/cartConstants";
+import { CART_ADD_ITEM, CART_REMOVE_ITEM } from "../constants/cartConstants";
 
 export const cartReducer = (state = { cartItems: [] }, action) => {
   switch (action.type) {
@@ -20,6 +20,13 @@ export const cartReducer = (state = { cartItems: [] }, action) => {
         //[...state.cartItems=item means update the cart using a square bracket to concatenate with the new item at the end of cart item]
         return { ...state, cartItems: [...state.cartItems, item] };
       }
+
+    case CART_REMOVE_ITEM:
+      return {
+        ...state,
+        cartItems: state.cartItems.filter((x) => x.product !== action.payload),
+      };
+
     default:
       return state;
   }
