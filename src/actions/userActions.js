@@ -10,7 +10,7 @@ import {
 } from "../constants/userConstants";
 
 export const register = (name, email, password) => async (dispatch) => {
-  dispatch({ type: USER_REGISTER_REQUEST, payload: { email, password } });
+  dispatch({ type: USER_REGISTER_REQUEST, payload: { name, email, password } });
   try {
     const { data } = await Axios.post("/api/users/register", {
       name,
@@ -19,7 +19,6 @@ export const register = (name, email, password) => async (dispatch) => {
     });
     dispatch({ type: USER_REGISTER_SUCCESS, payload: data });
     dispatch({ type: USER_SIGNIN_SUCCESS, payload: data });
-    localStorage.removeItem("userInfo", JSON.stringify(data));
   } catch (error) {
     dispatch({
       type: USER_REGISTER_FAIL,
