@@ -7,7 +7,7 @@ import MessageBox from "../components/MessageBox";
 
 export default function SigninScreen(props) {
   const [email, setEmail] = useState("admin@example.com");
-  const [password, setPassword] = useState("1234");
+  const [password, setPassword] = useState("123456");
 
   const redirect = props.location.search
     ? props.location.search.split("=")[1]
