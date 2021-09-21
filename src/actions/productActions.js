@@ -17,17 +17,20 @@ import {
   PRODUCT_UPDATE_SUCCESS,
 } from '../constants/productConstants';
 
-export const listProducts = () => async (dispatch) => {
-  dispatch({
-    type: PRODUCT_LIST_REQUEST,
-  });
-  try {
-    const { data } = await Axios.get('/api/products');
-    dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
-  } catch (error) {
-    dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
-  }
-};
+export const listProducts =
+  ({ seller = '' }) =>
+  async (dispatch) => {
+    //seller='' means the default value for seller is empty string but if we go to productlist screen
+    dispatch({
+      type: PRODUCT_LIST_REQUEST,
+    });
+    try {
+      const { data } = await Axios.get(`/api/products?seller=${seller}`);
+      dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
+    } catch (error) {
+      dispatch({ type: PRODUCT_LIST_FAIL, payload: error.message });
+    }
+  };
 
 export const detailsProduct = (productId) => async (dispatch) => {
   dispatch({ type: PRODUCT_DETAILS_REQUEST, payload: productId });
@@ -99,7 +102,7 @@ export const deleteProduct = (productId) => async (dispatch, getState) => {
     const { data } = Axios.delete(`/api/products/${productId}`, {
       headers: { Authorization: `Bearer ${userInfo.token}` },
     });
-    dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data  });
+    dispatch({ type: PRODUCT_DELETE_SUCCESS, payload: data });
   } catch (error) {
     const message =
       error.response && error.response.data.message
