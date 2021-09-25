@@ -21,7 +21,15 @@ import {
 } from '../constants/productConstants';
 
 export const listProducts =
-  ({ seller = '', name = '', category = '' }) =>
+  ({
+    seller = '',
+    name = '',
+    category = '',
+    min = 0,
+    max = 0,
+    order = '',
+    rating = 0,
+  }) =>
   async (dispatch) => {
     //seller='' means the default value for seller is empty string but if we go to productlist screen
     dispatch({
@@ -29,7 +37,7 @@ export const listProducts =
     });
     try {
       const { data } = await Axios.get(
-        `/api/products?seller=${seller}&name=${name}&category=${category}`
+        `/api/products?seller=${seller}&name=${name}&category=${category}&min=${min}&max=${max}&rating=${rating}&order=${order}`
       );
       dispatch({ type: PRODUCT_LIST_SUCCESS, payload: data });
     } catch (error) {
