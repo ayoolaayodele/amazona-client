@@ -32,7 +32,7 @@ export const createOrder = (order) => async (dispatch, getState) => {
     } = getState();
     const { data } = await Axios.post('/api/orders', order, {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo?.token}`,
       },
     });
     dispatch({ type: ORDER_CREATE_SUCCESS, payload: data.order });
@@ -56,7 +56,7 @@ export const detailsOrder = (orderId) => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = await Axios.get(`/api/orders/${orderId}`, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
+      headers: { Authorization: `Bearer ${userInfo?.token}` },
     });
     dispatch({ type: ORDER_DETAILS_SUCCESS, payload: data });
   } catch (error) {
@@ -79,7 +79,7 @@ export const payOrder =
         `/api/orders/${order._id}/pay`,
         paymentResult,
         {
-          headers: { Authorization: `Bearer ${userInfo.token}` },
+          headers: { Authorization: `Bearer ${userInfo?.token}` },
         }
       );
       dispatch({ type: ORDER_PAY_SUCCESS, payload: data });
@@ -100,7 +100,7 @@ export const listOrderMine = () => async (dispatch, getState) => {
   try {
     const { data } = await Axios.get('/api/orders/mine', {
       headers: {
-        Authorization: `Bearer ${userInfo.token}`,
+        Authorization: `Bearer ${userInfo?.token}`,
       },
     });
     dispatch({ type: ORDER_MINE_LIST_SUCCESS, payload: data });
@@ -142,7 +142,7 @@ export const deleteOrder = (orderId) => async (dispatch, getState) => {
   } = getState();
   try {
     const { data } = Axios.delete(`/api/orders/${orderId}`, {
-      headers: { Authorization: `Bearer ${userInfo.token}` },
+      headers: { Authorization: `Bearer ${userInfo?.token}` },
     });
     dispatch({ type: ORDER_DELETE_SUCCESS, payload: data });
   } catch (error) {
