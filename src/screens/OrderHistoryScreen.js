@@ -3,8 +3,10 @@ import { useDispatch, useSelector } from 'react-redux';
 import { listOrderMine } from '../actions/orderActions';
 import LoadingBox from '../components/LoadingBox';
 import MessageBox from '../components/MessageBox';
+import { useNavigate } from 'react-router-dom';
 
 export default function OrderHistoryScreen(props) {
+  const navigate = useNavigate();
   const orderMineList = useSelector((state) => state.orderMineList);
   const { loading, error, orders } = orderMineList;
   const dispatch = useDispatch();
@@ -17,9 +19,9 @@ export default function OrderHistoryScreen(props) {
       {loading ? (
         <LoadingBox></LoadingBox>
       ) : error ? (
-        <MessageBox variant="danger">{error}</MessageBox>
+        <MessageBox variant='danger'>{error}</MessageBox>
       ) : (
-        <table className="table">
+        <table className='table'>
           <thead>
             <tr>
               <th>ID</th>
@@ -44,12 +46,11 @@ export default function OrderHistoryScreen(props) {
                 </td>
                 <td>
                   <button
-                    type="button"
-                    className="small"
+                    type='button'
+                    className='small'
                     onClick={() => {
-                      props.history.push(`/order/${order._id}`);
-                    }}
-                  >
+                      navigate(`/order/${order._id}`);
+                    }}>
                     Details
                   </button>
                 </td>

@@ -170,7 +170,7 @@ button.open-sidebar {
 }
 button.open-sidebar:hover {
   border-color: #ffffff;
-  background-color:  #f08000;
+  background-color: #f08000;
 }
 aside ul {
   padding: 0;
@@ -185,9 +185,8 @@ button.close-sidebar {
   padding: 0.3rem 0.8rem;
 }
 button.close-sidebar:hover {
-  background-color:#f08000; 
+  background-color: #f08000;
 }
-
 
 /* Image */
 img {
@@ -212,7 +211,6 @@ img.large {
   background-color: #f8f8f8;
   border-radius: 0.5rem;
   margin: 1rem;
-  
 }
 
 .card-body {
@@ -330,14 +328,11 @@ img.large {
 
 /* Carousel */
 
-
 .carousel .slide img {
   max-width: 20rem;
 }
 
-
-
-  /* Search */
+/* Search */
 .search button {
   border-radius: 0 0.5rem 0.5rem 0;
   border-right: none;
@@ -423,7 +418,6 @@ img.large {
 .summary-title.color3 {
   background-color: #e0e0f0;
 }
-
 
 /* Chatbox */
 .chatbox {

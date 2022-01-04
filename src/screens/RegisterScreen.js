@@ -1,20 +1,20 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
-import { Link } from "react-router-dom";
-import { register } from "../actions/userActions";
-import LoadingBox from "../components/LoadingBox";
-import MessageBox from "../components/MessageBox";
+import React, { useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { register } from '../actions/userActions';
+import LoadingBox from '../components/LoadingBox';
+import MessageBox from '../components/MessageBox';
 
 export default function RegisterScreen(props) {
-  const [name, setName] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+  const navigate = useNavigate();
+  const [name, setName] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
 
-  const redirect = props.location.search
-    ? props.location.search.split("=")[1]
-    : "/";
-
+  const { search } = useLocation();
+  const redirectInUrl = new URLSearchParams(search).get('redirect');
+  const redirect = redirectInUrl ? redirectInUrl : '/';
   const userRegister = useSelector((state) => state.userRegister);
   const { userInfo, loading, error } = userRegister;
 
@@ -22,16 +22,16 @@ export default function RegisterScreen(props) {
   const submitHandler = (e) => {
     e.preventDefault();
     if (password !== confirmPassword) {
-      alert("Password and confirm password are not match");
+      alert('Password and confirm password are not match');
     } else {
       dispatch(register(name, email, password));
     }
   };
   useEffect(() => {
     if (userInfo) {
-      props.history.push(redirect);
+      navigate(redirect);
     }
-  }, [props.history, redirect, userInfo]);
+  }, [navigate, redirect, userInfo]);
   return (
     <div>
       <form className='form' onSubmit={submitHandler}>
@@ -47,8 +47,7 @@ export default function RegisterScreen(props) {
             id='name'
             placeholder='Enter name'
             required
-            onChange={(e) => setName(e.target.value)}
-          ></input>
+            onChange={(e) => setName(e.target.value)}></input>
         </div>
         <div>
           <label htmlFor='email'>Email address</label>
@@ -57,8 +56,7 @@ export default function RegisterScreen(props) {
             id='email'
             placeholder='Enter email'
             required
-            onChange={(e) => setEmail(e.target.value)}
-          ></input>
+            onChange={(e) => setEmail(e.target.value)}></input>
         </div>
         <div>
           <label htmlFor='password'>Password</label>
@@ -67,8 +65,7 @@ export default function RegisterScreen(props) {
             id='password'
             placeholder='Enter password'
             required
-            onChange={(e) => setPassword(e.target.value)}
-          ></input>
+            onChange={(e) => setPassword(e.target.value)}></input>
         </div>
         <div>
           <label htmlFor='confirmPassword'>Confirm Password</label>
@@ -77,8 +74,7 @@ export default function RegisterScreen(props) {
             id='confirmPassword'
             placeholder='Enter confirm password'
             required
-            onChange={(e) => setConfirmPassword(e.target.value)}
-          ></input>
+            onChange={(e) => setConfirmPassword(e.target.value)}></input>
         </div>
         <div>
           <label />
@@ -89,7 +85,7 @@ export default function RegisterScreen(props) {
         <div>
           <label />
           <div>
-            Already have an account?{" "}
+            Already have an account?{' '}
             <Link to={`/signin?redirect=${redirect}`}>Sign-In</Link>
           </div>
         </div>
