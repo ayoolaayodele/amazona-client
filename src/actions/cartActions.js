@@ -13,6 +13,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
 
   //send ajax request to server to get the information about any product
   const { data } = await Axios.get(`/api/products/${productId}`);
+  console.log(data);
   const {
     cart: { cartItems },
   } = getState();
@@ -34,7 +35,7 @@ export const addToCart = (productId, qty) => async (dispatch, getState) => {
         qty,
       },
     });
-    //store cart item in local localStorag
+    //store cart item in local localStorage
     //implemented getState to have access to state in redux store
     localStorage.setItem(
       'cartItems',
